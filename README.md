@@ -197,7 +197,6 @@ let perso: Human = {
 ```
 * 函数属性
 ```
-```
 interface Human {
   say(word: string): void;
 }
@@ -209,7 +208,6 @@ let frank: Human = {
 };
 
 frank.say('你好');
-```
 ```
 * 可选属性
 ```
@@ -329,6 +327,7 @@ let bili:Jiwawa ={
 #### Ts 类
 * public
 > 允许在 class 外部访问该属性
+> 不加修饰符的属性默认为 public
 ```
 class Student {
     fullName: string;
@@ -446,3 +445,154 @@ class Human extends Animal{
     }
 }
 ```
+
+#### 泛型
+* T 帮助我们捕获用户传入的类型,即 arg 的类型
+* 我们把 identity 函数叫做泛型，即：泛型是一个函数
+```
+function identity<T>(arg){}
+```
+* 可以推断 s 的类型是 string
+```
+function returnIt<X>(sth:X):X{
+    return sth;
+}
+
+let s=returnIt('hi') // 等价于 returnIt<X>('hi')。我们没必要使用尖括号（<>）来明确地传入类型；编译器可以查看myString的值，然后把T设置为它的类型。
+```
+* 不能推断 s 的类型
+```
+function returnIt(sth:any):any{
+    return sth;
+}
+
+let s=returnIt('hi')
+```
+* 泛型接口
+```
+// GenericIdentityFn 是一个函数接口
+interface GenericIdentityFn {
+    <T>(arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: GenericIdentityFn = identity;
+```
+
+#### 泛型约束
+> 对于 T 的有约束
+```
+// 要求 T 必须有 length 属性
+interface hasLength {
+    length:number
+}
+
+function getLength<T extends hasLength>(arg:T):number{
+    return arg.length
+}
+```
+
+
+#### 用泛型构造类的实例
+```
+function create<T>(c: {new(): T; }): T {
+    return new c();
+}
+
+class Human{
+    public type='human'
+    constructor(){
+    }
+}
+
+let {type}=create(Human)
+console.log(type) // human
+```
+等价于
+```
+class Human{
+    public type='human'
+    constructor(){
+    }
+}
+
+let {type}=new Human()
+console.log(type) // human
+```
+
+
+#### TS-规定 this 的类型
+* 在 js 中，this 是不能作为函数参数的
+```
+function fn(this){
+  console.log(this)
+}
+
+fn.call('libai')
+
+// Error: Unexpected token 'this'
+```
+* 在 Ts 中，this 是可以作为函数参数，并规定类型
+```
+function fn(this:string) {
+    console.log(this)
+}
+
+fn.call('libai') // 'libai'
+```
+
+
+#### js-this 补充
+* 以下写法会报错
+```
+// Error: Unexpected token 'this'
+function fn(this){
+
+}
+```
+
+#### 类型推断
+* 例1
+```
+function add(n1:string,n2:string) {
+    return n1+n2
+}
+
+let s=add('libai','zhangfei')
+```
+然后 ts 会推断出 s 是 string 类型
+* 例2
+```
+function add(n1:string,n2:string) {
+    if(n1>'1')
+        return n1+n2
+    else
+        return 0     
+}
+
+let s=add('libai','zhangfei')
+```
+然后 ts 会推断出 s 是 string|number 类型
+* 例3
+```
+let s=1 // TS 推断出 s 的类型是 number
+s.split() // 报错:因为 TS 知道 s 的类型是 number
+```
+
+#### 类型兼容
+```
+interface Human{
+    name:string,
+    age:number
+}
+
+let person={name:'libai',age:20,gender:false}
+let person2:Human=person
+```
+
+#### sound
+* 完备的
+* sound 是类型语言的名词

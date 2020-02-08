@@ -1,11 +1,7 @@
-abstract class Animal {
-    abstract name:string
-    abstract makeSound(): void;
+interface Human{
+    name:string,
+    age:number
 }
 
-class Human extends Animal{
-    name:'libai'
-    makeSound(){
-        console.log('hh')
-    }
-}
+let person={name:'libai',age:20,gender:false}
+let person2:Human=person
