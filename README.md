@@ -470,7 +470,7 @@ let s=returnIt('hi')
 ```
 * 泛型接口
 ```
-// GenericIdentityFn 是一个函数接口
+// GenericIdentityFn 是一个接口
 interface GenericIdentityFn {
     <T>(arg: T): T;
 }
