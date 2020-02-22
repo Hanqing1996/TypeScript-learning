@@ -596,3 +596,25 @@ let person2:Human=person
 #### sound
 * 完备的
 * sound 是类型语言的名词
+
+
+
+
+
+```
+// type alias
+type getObj<T> = T & { value: Number }
+
+// 泛型函数接口
+interface myFunctionInterface<T> {
+    (a: getObj<T>, b: Number): Number
+}
+
+// 实现上述接口
+const fn: myFunctionInterface<Number> = (a, b) => {
+    let res: any = 0
+    res += a.value
+    res += b
+    return res
+}
+```
