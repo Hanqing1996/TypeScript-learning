@@ -483,9 +483,9 @@ let myIdentity: GenericIdentityFn = identity;
 ```
 
 #### 泛型约束
-> 对于 T 的有约束
+> 不是对泛型做约束，而是用泛型去约束（约束函数参数类型，函数返回值类型等等）
+* 要求函数参数必须有 length 属性
 ```
-// 要求 T 必须有 length 属性
 interface hasLength {
     length:number
 }
@@ -494,7 +494,39 @@ function getLength<T extends hasLength>(arg:T):number{
     return arg.length
 }
 ```
+* 要求函数的两个参数类型必须一致
+```
+function fn<T>(a:T,b:T){
+}
+```
+* 要求函数的后一个参数必须是第一个参数的 key 数组
+```
+function fn<T,K extends keyof T>(object:T,keys:Array<K>){
+}
 
+fn({name:'libai',age:12,home:'hz'},['name','home'])
+
+// T:{name:String,age:Number,home:String}
+// K:'name'|'age'|'home'
+// Array<K>:['name','age','home']
+```
+* 要求函数的后一个参数必须是第一个参数的某个 key
+```
+function fn<T,K extends keyof T>(object:T,key:K){
+}
+
+fn({name:'libai',age:12,home:'hz'},'home')
+```
+如果上面代码中 {name:'libai',age:12,home:'hz'} 和 'home' 要用变量表示呢
+```
+function fn<T,K extends keyof T>(object:T,key:K){
+}
+
+const person:{name:String,age:Number,home:String}={name:'libai',age:12,home:'hz'}
+const prop:'name'|'age'|'home'='home'
+
+fn(person,prop)
+```
 
 #### 用泛型构造类的实例
 ```
@@ -521,37 +553,6 @@ class Human{
 
 let {type}=new Human()
 console.log(type) // human
-```
-
-
-#### TS-规定 this 的类型
-* 在 js 中，this 是不能作为函数参数的
-```
-function fn(this){
-  console.log(this)
-}
-
-fn.call('libai')
-
-// Error: Unexpected token 'this'
-```
-* 在 Ts 中，this 是可以作为函数参数，并规定类型
-```
-function fn(this:string) {
-    console.log(this)
-}
-
-fn.call('libai') // 'libai'
-```
-
-
-#### js-this 补充
-* 以下写法会报错
-```
-// Error: Unexpected token 'this'
-function fn(this){
-
-}
 ```
 
 #### 类型推断
@@ -592,12 +593,118 @@ interface Human{
 let person={name:'libai',age:20,gender:false}
 let person2:Human=person
 ```
+```
+const key1:Number=12
+const key2:String='libai'
+
+const keys:[Number|String,String]=[key1,key2]
+```
+
 
 #### sound
 * 完备的
 * sound 是类型语言的名词
 
+#### 类型的且运算
+> & 和 extends 都用于实现类型的扩展
+```
+interface A{
+    name:String;
+    age:Number;
+}
 
+interface B{
+    name:String;
+    grade:Number;
+}
+
+// c 的类型是 A,B 的扩展
+const c:A&B={
+    name:'libai',
+    age:12,
+    grade:90
+}
+```
+
+#### 类型的或运算
+```
+interface A{
+    name:String;
+    age:Number;
+}
+
+interface B{
+    name:String;
+    grade:Number;
+}
+
+// c 的类型必须满足 A 或 B 的含义
+const c:A|B={
+    name:'libai',
+    age:12,
+    grade:90
+}
+```
+
+#### type 就是给类型起别名
+> 而 interface 是创造一个新的类型
+```
+type NS=Number|String
+
+const a:NS='libai'
+```
+
+#### 字面量类型
+* 枚举属性的可能值
+```
+interface Course{
+    category:'task'|'live'
+}
+
+const current:Course={
+    category:'task'
+}
+```
+* 枚举变量的可能值
+```
+const a:'name'|'age'='age'
+```
+
+#### this 的类型
+* 在 js 中，this 是不能作为函数参数的
+```
+function fn(this){
+  console.log(this)
+}
+
+fn.call('libai')
+
+// Error: Unexpected token 'this'
+```
+* 在 Ts 中，this 是可以作为函数参数，并规定类型
+```
+function fn(this:string) {
+    console.log(this)
+}
+
+fn.call('libai') // 'libai'
+```
+
+#### 索引类型
+> 用于扩展类型
+```
+interface CalenderOptions{
+    [K:string]:any
+}
+
+const Calender=(options:CalenderOptions)=>{}
+
+Calender({
+    time:Date.now,
+    view:'year',
+    a:1234567
+})
+```
 
 
 
