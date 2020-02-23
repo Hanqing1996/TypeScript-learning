@@ -507,8 +507,8 @@ function fn<T,K extends keyof T>(object:T,keys:Array<K>){
 fn({name:'libai',age:12,home:'hz'},['name','home'])
 
 // T:{name:String,age:Number,home:String}
-// K:'name'|'age'|'home'
-// Array<K>:['name','age','home']
+// K:'name'或'age'或'home'，不是 'name'|'age'|'home'!!!!!
+// Array<K>:K 的数组
 ```
 * 要求函数的后一个参数必须是第一个参数的某个 key
 ```
@@ -706,8 +706,26 @@ Calender({
 })
 ```
 
+#### T[K] 和 T[K][]
+* T[K]
+```
+function fn<T,K extends keyof T>(object:T,key:K):T[K]{
+    return T[K]
+}
 
+fn({name:'libai',age:12,home:'hz'},'home')
+```
+* T[K][] 等同于 Array<T[K]>
+```
+function fn<T,K extends keyof T>(object:T,keys:Array<K>):Array<T[K]>{
 
+    return keys.map(key=>object[key])
+}
+
+console.log(fn({name:'libai',age:12,home:'hz'},['name','home'])) // ["libai", "hz"]
+```
+
+#### type & interface
 ```
 // type alias
 type getObj<T> = T & { value: Number }
@@ -723,5 +741,34 @@ const fn: myFunctionInterface<Number> = (a, b) => {
     res += a.value
     res += b
     return res
+}
+```
+
+#### Readonly
+> 把一个对象的所有字段变成只可读的
+```
+interface Person{
+    name:String,
+    age:Number
+}
+
+const p:Readonly<Person>={
+    name:'libai',
+    age:12
+}
+```
+
+#### Partial
+> 对象属性子集
+```
+interface Person{
+    name:String,
+    age:Number
+    home:String
+}
+
+const p:Partial<Person>={
+    name:'libai',
+    age:12
 }
 ```
