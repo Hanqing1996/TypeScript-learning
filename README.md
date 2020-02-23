@@ -1,13 +1,16 @@
-#### [如何在 vscode 中运行](https://xiedaimala.com/tasks/2ae1c048-9d8c-42a7-94c4-d4ea77ab1a5d/text_tutorials/c8b67a5a-4751-4f56-bcca-c70b197b61d8)
-
 #### ts-node
-> 让 ts 运行在 node.js 上
+> 让 ts 运行在 node.js 上，配置方法见[如何在 vscode 中运行 ts](https://xiedaimala.com/tasks/2ae1c048-9d8c-42a7-94c4-d4ea77ab1a5d/text_tutorials/c8b67a5a-4751-4f56-bcca-c70b197b61d8)
 
 #### tutorials
 向导,同 guide
 
 #### tsc  
-把 ts 编译成 js
+> 把 ts 编译成 js，因为浏览器只能运行 js 代码。
+```
+yarn add -D typescript // 只要安装 typescript，不需要安装其他依赖
+tsc 1.ts // 把 1.ts 编译成 1.js
+```
+
 
 #### 编译时vs运行时
 * JS:运行时报错（由于运行是在浏览器中，所以用户将看到报错）
@@ -770,5 +773,55 @@ interface Person{
 const p:Partial<Person>={
     name:'libai',
     age:12
+}
+```
+
+#### 可识别联合
+1. TS 可以通过一个特征值来识别类型
+2. 类型必须存在共有字段
+3. 共有字段应为字面量类型
+* update 需要 id,create 不需要 id
+```
+type Props = {
+    action: 'create'
+} | {
+    action: 'update'
+    id:Number
+}
+
+// 报错：Property 'id' is missing '{ action: "update"; }' but required in type '{ action: "update"; id: Number; }'
+const p:Props = {
+    action: 'update',
+}
+
+const p2:Props = {
+    action: 'create',
+    id:10 // 报错：'id' does not exist in type '{ action: "create"; }
+}
+
+function getId(a: Props) { 
+    // 只有 action 为 'updat',才输出 id
+    if (a.action === 'update') { 
+        console.log(a.id)
+    }
+}
+```
+
+#### 可识别联合在 redux 中的应用
+```
+type Action = {
+    type: 'add',
+    payload:Number
+} | {
+    type: 'reduce'
+    payload:string
+}
+
+
+function reducer(state: Number, action: Action) { 
+    if (action.type === 'add') {
+        return action.payload
+    } else
+        return action.payload +'ed'
 }
 ```
