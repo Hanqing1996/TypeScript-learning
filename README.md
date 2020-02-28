@@ -602,7 +602,45 @@ const key2:String='libai'
 
 const keys:[Number|String,String]=[key1,key2]
 ```
+```
+interface People { 
+    name:string
+}
 
+type richMan = People & { hasMoney: Boolean } 
+
+function judgeRich(man:richMan) {}
+
+const jack: PoorPeople = { name: 'jack' }
+
+// 尽管 jack 的类型是 PoorPeople,但是{...jack, hasMoney: true } 满足 richMan 的类型标准，所以这里允许参数为 { ...jack, hasMoney: true }
+judgeRich({ ...jack, hasMoney: true })
+```
+> 理解了类型兼容，才能理解 react 的 FunctionComponent
+```
+// index.d.ts
+type PropsWithChildren<P> = P & { children?: ReactNode };
+
+interface FunctionComponent<P = {}> {
+    (props: PropsWithChildren<P>, context?: any): ReactElement | null;
+}
+```
+```
+// icon.tsx
+interface  iconProps {
+    name:String
+}
+const Icon:React.FunctionComponent<iconProps>=(props)=>{
+    return(
+        <div>
+            icon
+        </div>
+    )
+}
+
+<Icon name="setting">
+```
+这里, <Icon name="setting"> 相当于 Icon({name:'setting'})。而函数调用时的参数 props={name:'setting'},满足 PropsWithChildren<iconProps> 的类型标准。
 
 #### sound
 * 完备的
