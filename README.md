@@ -863,3 +863,8 @@ function reducer(state: Number, action: Action) {
         return action.payload +'ed'
 }
 ```
+
+#### classNames 是一个数组，元素类型为 string 或 undefined
+```
+classNames:(string|undefined)[]
+```
