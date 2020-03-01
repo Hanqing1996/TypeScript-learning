@@ -868,3 +868,35 @@ function reducer(state: Number, action: Action) {
 ```
 classNames:(string|undefined)[]
 ```
+
+#### 严格的 TS
+```
+interface Person {
+    name:String 
+    children?:Array<Object>
+}
+
+function getChildren(p: Person): Array<Object> { 
+    return p.children //Error:Type 'Object[] | undefined' is not assignable to type 'Object[]'.
+}
+
+getChildren({
+    name: 'libai',
+    children: [{}, {}] 
+})
+```
+* TS：你定义的函数 getChildren 有问题，p.children 可能为 undefined,这会导致函数返回的类型可能为 undefined 或 Array<Object>,你却说函数返回类型一定是 Array<Object>
+* 我：呃，我能保证每次传入的参数 p 一定有 children
+* TS：不行，相信人的自觉是错误的，你必须修改！
+* 我：好吧，我让参数必须含有 children
+```
+    interface Person {
+    name:String 
+    children:Array<Object>
+}
+
+const getChildren=(p: Person): Array<Object>=> { 
+    return p.children
+}
+```
+    
