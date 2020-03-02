@@ -912,5 +912,17 @@ function addPrefix(name?:String) {
     return ['wheel-dialog',name].filter(Boolean).join('-')
 }
 ```
-   
-   
+#### ?XXX 表示如果不为undefiend,则XXX
+```
+
+interface Person { 
+    name:String|undefined // 也可以写成可选参数 name?:String
+}
+
+const a: Person = {
+    name:'libai'
+}
+
+// 如果 a.name 不为undefined,则获取 a.name.length
+const hh = a.name?.length
+```
