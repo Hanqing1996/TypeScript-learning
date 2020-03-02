@@ -899,4 +899,18 @@ const getChildren=(p: Person): Array<Object>=> {
     return p.children
 }
 ```
-    
+ 
+#### name:String|undefined 简写
+```
+function addPrefix(name:String|undefined) {
+    return ['wheel-dialog',name].filter(Boolean).join('-')
+}
+```
+等价于
+```
+function addPrefix(name?:String) {
+    return ['wheel-dialog',name].filter(Boolean).join('-')
+}
+```
+   
+   
