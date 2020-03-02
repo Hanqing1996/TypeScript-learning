@@ -926,3 +926,15 @@ const a: Person = {
 // 如果 a.name 不为undefined,则获取 a.name.length
 const hh = a.name?.length
 ```
+#### fn 在定义时可以不含参数，但是调用时必须含参数
+```
+interface fn { 
+    (n:Number):void
+}
+
+// 定义 f1:不含参数
+const f1: fn = () => { }
+
+// 调用 f1:必须含参数
+f1(3)
+```
