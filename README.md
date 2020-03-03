@@ -938,3 +938,17 @@ const f1: fn = () => { }
 // 调用 f1:必须含参数
 f1(3)
 ```
+#### a 是 undefiend 没关系;a.length/.map 就会报错
+* 不报错
+```
+function fn(a?:Array<Number>) { 
+    const b = a
+}
+```
+* 报错
+```
+function fn(a?:Array<Number>) { 
+    const b = a
+    const children=b.length
+}
+```
