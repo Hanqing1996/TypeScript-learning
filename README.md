@@ -952,3 +952,12 @@ function fn(a?:Array<Number>) {
     const children=b.length
 }
 ```
+#### as
+> as 和 ?/&& 不同。 as 是"我保证这是XXX类型"。?/&& 是"如果不为undefined,则执行相应操作"
+```
+type Children=Number | Array<Number>
+
+function fn(a: Children) { 
+    const len=(a as Array<Number>).length  // "我保证 a 是数组类型"
+}
+```
