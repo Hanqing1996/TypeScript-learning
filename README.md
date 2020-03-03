@@ -923,7 +923,7 @@ const a: Person = {
     name:'libai'
 }
 
-// 如果 a.name 不为undefined,则获取 a.name.length
+// 如果 a.name 不为undefined,则获取 a.name.length，等效于 const hh = a.name&&a.name.length
 const hh = a.name?.length
 ```
 #### fn 在定义时可以不含参数，但是调用时必须含参数
