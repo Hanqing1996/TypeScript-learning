@@ -961,3 +961,24 @@ function fn(a: Children) {
     const len=(a as Array<Number>).length  // "我保证 a 是数组类型"
 }
 ```
+#### a[key] = 5 
+```
+const a = { name: 'libai' }
+const key = 'age'
+/**
+ * Element implicitly has an 'any' type 
+ * because expression of type '"age"' 
+ * can't be used to index type '{ name: string; }'.
+ */
+a[key] = 5 
+```
+正确做法
+```
+interface Person { 
+    [key:string]:any
+}
+
+const a: Person = { name: 'libai' }
+const key = 'age'
+a[key]=5
+```
