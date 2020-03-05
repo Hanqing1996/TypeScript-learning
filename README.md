@@ -900,7 +900,7 @@ const getChildren=(p: Person): Array<Object>=> {
 }
 ```
  
-#### name:String|undefined 简写
+#### name?:String 简写
 ```
 function addPrefix(name:String|undefined) {
     return ['wheel-dialog',name].filter(Boolean).join('-')
@@ -912,6 +912,14 @@ function addPrefix(name?:String) {
     return ['wheel-dialog',name].filter(Boolean).join('-')
 }
 ```
+> 允许传递 undefined
+```
+function fn(a?:String){}
+
+fn(undefined)
+```
+
+
 #### ?XXX 表示如果不为undefiend,则XXX
 ```
 
