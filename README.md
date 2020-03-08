@@ -948,7 +948,19 @@ useEffect(()=>{
 ```
 <div ref={refContent}></div>
 ```
+> 如果保证的事情是真的没做到呢?
+```
+会报错：Cannot read property 'scrollHeight' of null
+```
+#### as
+> as 和 ?/&& 不同。 as 是"我保证这是XXX类型"。?/&& 是"如果不为undefined,则执行相应操作"
+```
+type Children=Number | Array<Number>
 
+function fn(a: Children) { 
+    const len=(a as Array<Number>).length  // "我保证 a 是数组类型"
+}
+```
 #### fn 在定义时可以不含参数，但是调用时必须含参数
 ```
 interface fn { 
@@ -973,15 +985,6 @@ function fn(a?:Array<Number>) {
 function fn(a?:Array<Number>) { 
     const b = a
     const children=b.length
-}
-```
-#### as
-> as 和 ?/&& 不同。 as 是"我保证这是XXX类型"。?/&& 是"如果不为undefined,则执行相应操作"
-```
-type Children=Number | Array<Number>
-
-function fn(a: Children) { 
-    const len=(a as Array<Number>).length  // "我保证 a 是数组类型"
 }
 ```
 #### a[key] = 5 
