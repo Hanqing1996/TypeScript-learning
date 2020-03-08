@@ -934,6 +934,21 @@ const a: Person = {
 // 如果 a.name 不为undefined,则获取 a.name.length，等效于 const hh = a.name&&a.name.length
 const hh = a.name?.length
 ```
+#### ! 保证存在
+> 注意 ?/&&xxx 意思是"假设存在，则xxx",! 的意思是"保证存在"
+
+> 常用场景:mounted 后，获取 ref 元素
+```
+const refContent=useRef<HTMLDivElement>(null)
+
+useEffect(()=>{
+    const contentHeight=refContent.current?.scrollHeight
+},[])
+```
+```
+<div ref={refContent}></div>
+```
+
 #### fn 在定义时可以不含参数，但是调用时必须含参数
 ```
 interface fn { 
