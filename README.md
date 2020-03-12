@@ -1011,8 +1011,18 @@ a[key]=5
 #### Property 'innerText' does not exist on type 'EventTarget'.
 > 用强制类型断言 as
 ```
-console.log(event.target&&(event.target as HTMLButtonElement).innerText);
+inputContent(event: MouseEvent) {
+    console.log(event.target&&(event.target as HTMLButtonElement).innerText);
+}
 ```
+可以优化为
+```
+inputContent(event: MouseEvent) {
+    const button=event.target as HTMLButtonElement
+    console.log(button.innerText);
+}
+```
+
 #### 怎么知道 MyTouchMove 的类型
 ```
 <div onTouchStart={MyTouchStart}></div>
