@@ -1008,3 +1008,16 @@ const a: Person = { name: 'libai' }
 const key = 'age'
 a[key]=5
 ```
+#### Property 'innerText' does not exist on type 'EventTarget'.
+> 用强制类型断言 as
+```
+console.log(event.target&&(event.target as HTMLButtonElement).innerText);
+```
+#### 怎么知道 MyTouchMove 的类型
+```
+<div onTouchStart={MyTouchStart}></div>
+// 怎么知道 MyTouchMove 的类型?
+const MyTouchMove=()=>{
+}
+解决方法:因为 MyTouchMove 是赋值给 onTouchStart 的，所以 ctrl 单击查看 onTouchStart 的类型即可
+```
