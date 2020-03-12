@@ -1023,11 +1023,11 @@ inputContent(event: MouseEvent) {
 }
 ```
 
-#### 怎么知道 MyTouchMove 的类型
+#### 怎么知道我们写的一个函数的类型
 ```
 <div onTouchStart={MyTouchStart}></div>
-// 怎么知道 MyTouchMove 的类型?
-const MyTouchMove=()=>{
+// 怎么知道 MyTouchStart 的类型?
+const MyTouchStart:???=()=>{
 }
-解决方法:因为 MyTouchMove 是赋值给 onTouchStart 的，所以 ctrl 单击查看 onTouchStart 的类型即可
+解决方法:因为 MyTouchStart 是赋值给 onTouchStart 的，所以 ctrl 单击查看 onTouchStart 的类型即可
 ```
