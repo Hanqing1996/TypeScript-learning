@@ -1031,3 +1031,9 @@ const MyTouchStart:???=()=>{
 }
 解决方法:因为 MyTouchStart 是赋值给 onTouchStart 的，所以 ctrl 单击查看 onTouchStart 的类型即可
 ```
+#### 为对象字段添加类型
+```
+let TagData={
+    data:[] as TagList
+}
+```
