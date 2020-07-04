@@ -1037,3 +1037,20 @@ let TagData={
     data:[] as TagList
 }
 ```
+#### extends keyof T/keyof
+* [相关讨论](https://stackoverflow.com/questions/57337598/in-typescript-what-do-extends-keyof-and-in-keyof-mean)
+* keyof
+> 返回一个由 T 的各个属性类型构成的联合类型
+```
+const TypeList = {
+    '+':'收入',
+    '-':'支出'
+}
+
+type K = keyof typeof TypeList // K="+" | "-"
+```
+* extends keyof 
+> 返回某个 T 的属性类型，不返回联合类型。注意不要和 interface,class 的 extends 混淆，和那一点关系都没有
+
+
+
