@@ -1052,5 +1052,24 @@ type K = keyof typeof TypeList // K="+" | "-"
 * extends keyof 
 > 返回某个 T 的属性类型，不返回联合类型。注意不要和 interface,class 的 extends 混淆，和那一点关系都没有
 
+#### Omit
+> 用于剔除属性
+```
+type RecordItem={
+    tagNames:string[],
+    note:string,
+    type:'+'|'-',
+    amount:number,
+    createdAt:string,
+    updateAt:string
+}
 
+// 剔除掉 createdAt 和 upddateAt 属性
+const recordWithoutTime:Omit<RecordItem,'createdAt'|'updateAt'>={
+    tagNames:['衣','食'],
+    note:'花了很多钱',
+    type:'+',
+    amount:500
+}
+```
 
