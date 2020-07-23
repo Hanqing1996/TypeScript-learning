@@ -1072,4 +1072,18 @@ const recordWithoutTime:Omit<RecordItem,'createdAt'|'updateAt'>={
     amount:500
 }
 ```
+#### getName?(key: string)
+```
+interface Options {
+
+    getName?(key: string): any;
+}
+```
+等价于
+```
+interface Options {
+
+    getName?:(key: string)=>any;
+}
+---
 
