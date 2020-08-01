@@ -1,3 +1,9 @@
+#### 创建并初始化 tsconfig.json
+```
+yarn add typescript
+tsc --init
+```
+
 #### ts-node
 > 让 ts 运行在 node.js 上，配置方法见[如何在 vscode 中运行 ts](https://xiedaimala.com/tasks/2ae1c048-9d8c-42a7-94c4-d4ea77ab1a5d/text_tutorials/c8b67a5a-4751-4f56-bcca-c70b197b61d8)
 
